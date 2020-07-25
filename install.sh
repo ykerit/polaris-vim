@@ -1,8 +1,8 @@
 #!/usr/bin/sh
-current_dir = $HOME
+current_dir=$HOME
 install_home=$current_dir/.polaris
 
-function prepare_env() {
+prepare_env() {
 	echo "install neovim"
 	version=`lsb_release -c`
 	echo $version
@@ -25,7 +25,7 @@ function prepare_env() {
 	echo "environment install success"
 }
 
-function download_config() {
+download_config() {
 	if [ -d $install_home ]; then
 		rm -rf $install_home
 	fi
@@ -37,7 +37,7 @@ function download_config() {
 	echo "vim config download success"
 }
 
-function install_cquery() {
+install_cquery() {
 	cmake -version > /dev/null
 	if [ $? -ne 0 ]; then
 		echo "cmake uninstall"
@@ -61,7 +61,7 @@ function install_cquery() {
 	nvim +PlugInstall +UpdateRemotePlugins +qa
 }
 
-function install_ycm() {
+install_ycm() {
 	echo "cd $current_dir/bundle/YouCompleteMe/ && python install.py --clang-completer"
 	cd $current_dir/bundle/YouCompleteMe/
 	git submodule update --init --recursive
@@ -73,7 +73,7 @@ function install_ycm() {
 	fi
 }
 
-function link() {
+link() {
 	echo "link config"	
 	today=`date +%m%d`	
 	mv $current_dir/.vim $current_dir/.vim.bak_${today} 2>/dev/null
