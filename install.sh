@@ -7,7 +7,8 @@ function prepare_env() {
 	version=`lsb_release -c`
 	echo $version
 	sudo apt-get install software-properties-common
-	if [[$version =~ "bionic"]]
+	if [[ $version =~ "bionic" ]]; then
+		echo "already exits properties"
 	else
 		sudo apt-get install python-software-properties
 	fi
@@ -69,6 +70,7 @@ function install_ycm() {
 		python install.py --clang-completer --system-libclang
 	else
 		python install.py --clang-completer
+	fi
 }
 
 function link() {
