@@ -10,11 +10,11 @@ prepare_env() {
 	if [[ $version =~ "bionic" ]]; then
 		echo "already exits properties"
 	else
-		sudo apt-get install python-software-properties
+		sudo apt-get install python-software-properties -y
 	fi
 	sudo add-apt-repository ppa:neovim-ppa/stable
 	sudo apt-get update
-	sudo apt-get install neovim
+	sudo apt-get install neovim -y
 	nvim --version
 	if [ $? -ne 0 ]; then
 		echo "neovim install failed"
@@ -58,7 +58,7 @@ install_cquery() {
 	cmake --build . --target install
 	cd ..
 	rm -rf cquery
-	nvim +PlugInstall +UpdateRemotePlugins +qa
+	nvim -u $current_dir/.config/nvim/init.vim +PlugInstall! +PlugClean! +qall!
 }
 
 install_ycm() {
@@ -77,9 +77,8 @@ link() {
 	echo "link config"	
 	today=`date +%m%d`	
 	mv $current_dir/.vim $current_dir/.vim.bak_${today} 2>/dev/null
-	mv $current_dir/.vimrc $current_dir/.vimrc.bak_${today} 2 >/dev/null
-	mkdir -p $current_dir/.config
-	rm -f $current_dir/.config/nvim
+	mv $current_dir/.vimrc $current_dir/.vimrc.bak_${today} 2>/dev/null
+	mkdir -p $current_dir/.config/nvim
 	ln -s $install_home/init.vim $current_dir/.config/nvim/init.vim
 }
 
