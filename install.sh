@@ -20,6 +20,8 @@ prepare_env() {
 		echo "neovim install failed"
 		exit 1
 	fi
+	sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 	touch $current_dir/.bashrc
 	echo "alias vi=nvim" >> $current_dir/.bashrc
 	echo "environment install success"
