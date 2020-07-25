@@ -29,7 +29,7 @@ download_config() {
 	if [ -d $install_home ]; then
 		rm -rf $install_home
 	fi
-	git clone https://github.com/ykerit/polaris-vim.git
+	git clone https://github.com/ykerit/polaris-vim.git $install_home
 	if [ $? -ne 0 ]; then
 		echo "vim config file download failed"
 		exit 1
@@ -80,8 +80,8 @@ link() {
 	mkdir -p $current_dir/.config/nvim
 	mkdir -p $current_dir/.local/share/nvim/site/autoload
 	plug_home=$current_dir/.local/share/nvim/site/autoload
-	ln -s $install_home/init.vim $current_dir/.config/nvim/init.vim
-	ln -s $install_home/plug.vim $plug_home/plug.vim
+	cp $install_home/init.vim $current_dir/.config/nvim/init.vim
+	cp $install_home/plug.vim $plug_home/plug.vim
 	nvim -u $current_dir/.local/nvim/init.vim +PlugInstall! +PlugClean! +qall!
 }
 
