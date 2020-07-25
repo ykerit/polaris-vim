@@ -20,8 +20,6 @@ prepare_env() {
 		echo "neovim install failed"
 		exit 1
 	fi
-	sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 	touch $current_dir/.bashrc
 	echo "alias vi=nvim" >> $current_dir/.bashrc
 	echo "environment install success"
@@ -60,7 +58,6 @@ install_cquery() {
 	cmake --build . --target install
 	cd ..
 	rm -rf cquery
-	nvim -u $current_dir/.config/nvim/init.vim +PlugInstall! +PlugClean! +qall!
 }
 
 install_ycm() {
@@ -81,12 +78,15 @@ link() {
 	mv $current_dir/.vim $current_dir/.vim.bak_${today} 2>/dev/null
 	mv $current_dir/.vimrc $current_dir/.vimrc.bak_${today} 2>/dev/null
 	mkdir -p $current_dir/.config/nvim
+	mkdir -p $current_dir/.vim/autoload
 	ln -s $install_home/init.vim $current_dir/.config/nvim/init.vim
+	ln -s $install_home/plug.vim $current_dir/.vim/autoload/plug.vim
+	nvim -u $current_dir/.config/nvim/init.vim +PlugInstall! +PlugClean! +qall!
 }
 
 prepare_env
 download_config
 link
-install_cquery
+#install_cquery
 install_ycm
 echo "install done"
