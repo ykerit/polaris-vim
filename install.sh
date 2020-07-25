@@ -78,10 +78,11 @@ link() {
 	mv $current_dir/.vim $current_dir/.vim.bak_${today} 2>/dev/null
 	mv $current_dir/.vimrc $current_dir/.vimrc.bak_${today} 2>/dev/null
 	mkdir -p $current_dir/.config/nvim
-	mkdir -p $current_dir/.vim/autoload
+	mkdir -p $current_dir/.local/share/nvim/site/autoload
+	plug_home=$current_dir/.local/share/nvim/site/autoload
 	ln -s $install_home/init.vim $current_dir/.config/nvim/init.vim
-	ln -s $install_home/plug.vim $current_dir/.vim/autoload/plug.vim
-	nvim -u $current_dir/.config/nvim/init.vim +PlugInstall! +PlugClean! +qall!
+	ln -s $install_home/plug.vim $plug_home/plug.vim
+	nvim -u $current_dir/.local/nvim/init.vim +PlugInstall! +PlugClean! +qall!
 }
 
 prepare_env
