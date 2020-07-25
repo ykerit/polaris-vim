@@ -1,7 +1,6 @@
 #!/usr/bin/sh
-install_user_home=$1
-install_home=$install_user_home/.polaris
-current_dir = `pwd`
+current_dir = $HOME
+install_home=$current_dir/.polaris
 
 function prepare_env() {
 	echo "install neovim"
@@ -20,8 +19,8 @@ function prepare_env() {
 		echo "neovim install failed"
 		exit 1
 	fi
-	touch $install_user_home/.bashrc
-	echo "alias vi=nvim" >> $install_user_home/.bashrc
+	touch $current_dir/.bashrc
+	echo "alias vi=nvim" >> $current_dir/.bashrc
 	echo "environment install success"
 }
 
@@ -29,7 +28,7 @@ function download_config() {
 	if [ -d $install_home ]; then
 		rm -rf $install_home
 	fi
-	git clone
+	git clone https://github.com/ykerit/polaris-vim.git
 	if [ $? -ne 0 ]; then
 		echo "vim config file download failed"
 		exit 1
@@ -72,8 +71,19 @@ function install_ycm() {
 		python install.py --clang-completer
 }
 
+function link() {
+	echo "link config"	
+	today=`date +%m%d`	
+	mv $current_dir/.vim $current_dir/.vim.bak_${today} 2>/dev/null
+	mv $current_dir/.vimrc $current_dir/.vimrc.bak_${today} 2 >/dev/null
+	mkdir -p $current_dir/.config
+	rm -f $current_dir/.config/nvim
+	ln -s $install_home/init.vim $current_dir/.config/nvim/init.vim
+}
+
 prepare_env
 download_config
+link
 install_cquery
 install_ycm
-echo "install success"
+echo "install done"
