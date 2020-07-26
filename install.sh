@@ -60,12 +60,22 @@ install_cquery() {
 	rm -rf cquery
 }
 
+version_lt() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" != "$1"; }
+
 install_ycm() {
 	echo "cd $current_dir/.vim/plugged/YouCompleteMe/ && python install.py --clang-completer"
 	cd $current_dir/.vim/plugged/YouCompleteMe/
 	echo "it's will be cost many time"
 	sudo apt install build-essential cmake python3-dev
 	git submodule update --init --recursive
+	python_v=`python3 -V`
+	if version_lt $python_v "Python 3.6.0"; then
+		echo $python_v
+		sudo add-apt-repository ppa:deadsnakes/ppa -y
+		sudo apt update
+		sudo apt-get install python3.7
+		sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7
+	fi
 	if [ `which clang` ]
 	then
 		python3 install.py --clangd-completer --system-libclang
