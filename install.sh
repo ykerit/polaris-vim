@@ -64,12 +64,13 @@ install_ycm() {
 	echo "cd $current_dir/.vim/plugged/YouCompleteMe/ && python install.py --clang-completer"
 	cd $current_dir/.vim/plugged/YouCompleteMe/
 	echo "it's will be cost many time"
+	sudo apt install build-essential cmake python3-dev
 	git submodule update --init --recursive
 	if [ `which clang` ]
 	then
-		python install.py --clang-completer --system-libclang
+		python3 install.py --clangd-completer --system-libclang
 	else
-		python install.py --clang-completer
+		python3 install.py --clangd-completer
 	fi
 }
 
@@ -84,7 +85,9 @@ link() {
 	ln -s $install_home/init.vim $current_dir/.config/nvim/init.vim
 	ln -s $install_home/vimrc.plug $current_dir/.config/nvim/vimrc.plug
 	ln -s $install_home/plug.vim $plug_home/plug.vim
+	system_shell=$SHELL
 	nvim -u $current_dir/.config/nvim/vimrc.plug +PlugInstall! +PlugClean! +qall!
+	export SHELL=$system_shell
 }
 
 prepare_env
