@@ -66,13 +66,13 @@ install_ycm() {
 	echo "it's will be cost many time"
 	sudo apt install build-essential cmake python3-dev
 	git submodule update --init --recursive
-	python3 $install/tool.py
+	python3 $install_home/tool.py
 	if [ $? -ne 0 ]; then
 		echo "$python_v YCM must be >= 3.6.0"
 		sudo add-apt-repository ppa:deadsnakes/ppa -y
 		sudo apt update
 		sudo apt-get install python3.7 -y
-		sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7
+		sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 150
 	fi
 	if [ `which clang` ]
 	then

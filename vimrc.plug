@@ -21,6 +21,5 @@ Plug 'autozimu/LanguageClient-neovim', {
 " auto complete
 Plug 'Valloric/YouCompleteMe'
 Plug 'Raimondi/delimitMate'
-Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
 Plug 'kien/rainbow_parentheses.vim'
 call plug#end()
