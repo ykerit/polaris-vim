@@ -1,4 +1,6 @@
 " common
+let mapleader = ','
+syntax on
 set nocompatible
 set modifiable
 set shiftwidth=4 
@@ -13,38 +15,20 @@ set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8
 set encoding=utf-8
 set hidden
-let mapleader = ','
 set cursorline
 set hlsearch
 set incsearch
 set ignorecase
 
-call plug#begin('~/.vim/plugged')
-" 自动对其
-Plug 'junegunn/vim-easy-align'
-" 文件树
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-" 代码检查
-Plug 'dense-analysis/ale'
-" 文件查找
-Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-" airlien
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-" 主题
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'flazz/vim-colorschemes'
+if filereadable(expand("~/.config/nvim/vimrc.plug"))
+	source ~/.config/nvim/vimrc.plug
+endif
 
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-" auto complete
-Plug 'Valloric/YouCompleteMe'
-Plug 'Raimondi/delimitMate'
-Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
-Plug 'kien/rainbow_parentheses.vim'
-call plug#end()
+filetype plugin indent on
+filetype on
+filetype indent on
+filetype plugin on
+filetype plugin indent on
 
 " ale settting
 let g:ale_sign_error = '>>'

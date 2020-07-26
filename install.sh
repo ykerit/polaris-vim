@@ -6,13 +6,13 @@ prepare_env() {
 	echo "install neovim"
 	version=`lsb_release -c`
 	echo $version
-	sudo apt-get install software-properties-common
+	sudo apt-get install software-properties-common -y
 	if [[ $version =~ "bionic" ]]; then
 		echo "already exits properties"
 	else
 		sudo apt-get install python-software-properties -y
 	fi
-	sudo add-apt-repository ppa:neovim-ppa/stable
+	sudo add-apt-repository ppa:neovim-ppa/stable -y
 	sudo apt-get update
 	sudo apt-get install neovim -y
 	nvim --version
@@ -41,7 +41,7 @@ install_cquery() {
 	cmake -version > /dev/null
 	if [ $? -ne 0 ]; then
 		echo "cmake uninstall"
-		sudo apt-get install cmake
+		sudo apt-get install cmake -y
 	fi
 	cmake -version > /dev/null
 	if [ $? -ne 0 ]; then
@@ -61,8 +61,9 @@ install_cquery() {
 }
 
 install_ycm() {
-	echo "cd $current_dir/bundle/YouCompleteMe/ && python install.py --clang-completer"
-	cd $current_dir/bundle/YouCompleteMe/
+	echo "cd $current_dir/.vim/plugged/YouCompleteMe/ && python install.py --clang-completer"
+	cd $current_dir/.vim/plugged/YouCompleteMe/
+	echo "it's will be cost many time"
 	git submodule update --init --recursive
 	if [ `which clang` ]
 	then
@@ -80,9 +81,10 @@ link() {
 	mkdir -p $current_dir/.config/nvim
 	mkdir -p $current_dir/.local/share/nvim/site/autoload
 	plug_home=$current_dir/.local/share/nvim/site/autoload
-	cp $install_home/init.vim $current_dir/.config/nvim/init.vim
-	cp $install_home/plug.vim $plug_home/plug.vim
-	nvim -u $current_dir/.local/nvim/init.vim +PlugInstall! +PlugClean! +qall!
+	ln -s $install_home/init.vim $current_dir/.config/nvim/init.vim
+	ln -s $install_home/vimrc.plug $current_dir/.config/nvim/vimrc.plug
+	ln -s $install_home/plug.vim $plug_home/plug.vim
+	nvim -u $current_dir/.config/nvim/vimrc.plug +PlugInstall! +PlugClean! +qall!
 }
 
 prepare_env
