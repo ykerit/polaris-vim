@@ -20,7 +20,7 @@ set nu
 set noeb vb t_vb=
 set syntax=on
 set scrolloff=5
-set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+set fileencodings=utf-8
 set termencoding=utf-8
 set encoding=utf-8
 set hidden
@@ -28,32 +28,22 @@ set cursorline
 set hlsearch
 set incsearch
 set ignorecase
+set backspace=indent,eol,start
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='bubblegum'
 
 " colorscheme neodark
 colorscheme space-vim-dark
-hi Comment guifg=#5C6370 ctermfg=59
 color space-vim-dark
 set termguicolors
-hi LineNr ctermbg=NONE guibg=NONE
+"colorscheme onehalflight
+"let g:airline_theme='onehalfdark'
+"colorscheme purify
+"let g:airline_theme='purify'
+" hi LineNr ctermbg=NONE guibg=NONE
+hi Comment guifg=#5C6370 ctermfg=59
 
-" ale settting
-let g:ale_sign_error = '>>'
-let g:ale_sign_warning = '>'
-let g:ale_statusline_format = ['x %d','⚠ %d', '⬥ ok']
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_set_highlights = 1
-let g:ale_linters_explicit = 1
-let g:ale_completion_delay = 500
-let g:ale_echo_delay = 20
-let g:ale_lint_delay = 500
-let g:ale_echo_msg_format = '[%linter%] %code: %%s'
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
-let g:airline#extensions#ale#enabled = 1
 
 let g:Lf_ShortcutF = '<c-p>'
 let g:Lf_ShortcutB = '<m-n>'
@@ -79,7 +69,7 @@ nnoremap J <C-w>j
 nnoremap K <C-w>k
 nnoremap L <C-w>l
 nnoremap <C-N> :bnext<CR>
-nnoremap <C-T> :bprev<CR>
+nnoremap <leader>p :bprev<CR>
 map <leader>tm :tabclose<CR>
 
 "copy no number

@@ -13,7 +13,9 @@ Plug 'vim-airline/vim-airline-themes'
 " 主题
 Plug 'flazz/vim-colorschemes'
 Plug 'Raimondi/delimitMate'
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'KeitaNakamura/neodark.vim'
 Plug 'liuchengxu/space-vim-dark'
+Plug 'kyoz/purify', { 'rtp': 'vim' }
 call plug#end()
